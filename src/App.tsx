@@ -1,14 +1,11 @@
-import { useState } from "react";
 import "./App.css";
 
-import YouTubeForm from "./components/YouTubeForm";
+import YouTubeFormV2 from "./components/YouTubeFormV2";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div>
-      <YouTubeForm />
+      <YouTubeFormV2 />
     </div>
   );
 }
