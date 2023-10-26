@@ -1,4 +1,4 @@
-// using react hook form
+// Checking if react form hook re-renders the component on input change
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"; // to show the form state in devtools
 

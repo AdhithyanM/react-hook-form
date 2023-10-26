@@ -1,4 +1,4 @@
-// using react hook form
+// handling form submit
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"; // to show the form state in devtools
 
