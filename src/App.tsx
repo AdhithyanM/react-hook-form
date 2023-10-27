@@ -1,11 +1,11 @@
 import "./App.css";
 
-import YouTubeFormV6 from "./components/YouTubeFormV6";
+import YouTubeFormV7 from "./components/YouTubeFormV7";
 
 function App() {
   return (
     <div>
-      <YouTubeFormV6 />
+      <YouTubeFormV7 />
     </div>
   );
 }

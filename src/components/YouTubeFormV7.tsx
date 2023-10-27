@@ -1,4 +1,4 @@
-// displaying the validated error message back to user
+// adding custom validation as per the business requirement
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"; // to show the form state in devtools
 
@@ -8,7 +8,7 @@ type FormValues = {
   channel: string;
 };
 
-const YouTubeFormV6 = () => {
+const YouTubeFormV7 = () => {
   const form = useForm<FormValues>();
   const { register, handleSubmit, formState, control } = form;
   const { errors: formErrors } = formState;
@@ -45,6 +45,28 @@ const YouTubeFormV6 = () => {
                 /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
               message: "Invalid email format",
             },
+            // ------ variation 1 ----------- with single custom rule
+            // validate: (fieldValue) => {
+            //   return (
+            //     fieldValue !== "admin@example.com" ||
+            //     "Enter a different email address"
+            //   );
+            // },
+            // ------ variation 2 ----------- with multiple custom rules
+            validate: {
+              notAdmin: (fieldValue) => {
+                return (
+                  fieldValue !== "admin@example.com" ||
+                  "Enter a different email address"
+                );
+              },
+              notBlackListed: (fieldValue) => {
+                return (
+                  !fieldValue.endsWith("baddomain.com") ||
+                  "This domain is not supported"
+                );
+              },
+            },
           })}
         />
         <p className="error">{formErrors.email?.message}</p>
@@ -72,4 +94,4 @@ const YouTubeFormV6 = () => {
   );
 };
 
-export default YouTubeFormV6;
+export default YouTubeFormV7;
