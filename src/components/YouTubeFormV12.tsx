@@ -1,6 +1,9 @@
-// dealing with numeric and date type fields
+// how to observe field values for custom usage in the component
+import { useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"; // to show the form state in devtools
+
+let renderCount = 0;
 
 type FormValues = {
   username: string;
@@ -18,7 +21,7 @@ type FormValues = {
   dob: Date;
 };
 
-const YouTubeFormV11 = () => {
+const YouTubeFormV12 = () => {
   const form = useForm<FormValues>({
     defaultValues: {
       username: "Batman",
@@ -35,7 +38,7 @@ const YouTubeFormV11 = () => {
     },
   });
 
-  const { register, handleSubmit, formState, control } = form;
+  const { register, handleSubmit, formState, control, watch } = form;
   const { errors: formErrors } = formState;
 
   const {
@@ -47,13 +50,43 @@ const YouTubeFormV11 = () => {
     control,
   });
 
+  // Note:      !!!!!!
+  // Irrespective of whether the watch value is used in your code or not,
+  // If it is used in the component,
+  // The component gets re-rendered for each change.
+
+  // watch a particular field
+  // const watchUsername = watch("username");
+
+  // watch multiple fields - outputs array of values
+  // const watchMultipleFields = watch(["username", "email"]);
+
+  // watching the entire form - returns FormValues which is basically object.
+  // const watchForm = watch();
+
+  // performing a side effect after watching a value
+  // Note: This won't re-render the form              !!!!!!
+  useEffect(() => {
+    // use the callback version of watch method
+    const subscription = watch((value) => {
+      console.log(value);
+    });
+    // this is actually a subscription to changes in the form values
+
+    // cleanup function when component unmounts
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   const onSubmit = (formData: FormValues) => {
     console.log("Form submitted", formData);
   };
 
+  renderCount++;
+
   return (
     <div>
-      <h1>YouTube Form</h1>
+      <h1>YouTube Form ({renderCount / 2})</h1>
+      {/* <h2>Watched value: {JSON.stringify(watchForm)}</h2> */}
 
       <div className="form-control">
         <label className="username">Username</label>
@@ -201,4 +234,4 @@ const YouTubeFormV11 = () => {
   );
 };
 
-export default YouTubeFormV11;
+export default YouTubeFormV12;
