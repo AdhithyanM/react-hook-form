@@ -1,4 +1,4 @@
-// handling dynamic fields - like adding object to an array of objects, etc...
+// dealing with numeric and date type fields
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"; // to show the form state in devtools
 
@@ -11,11 +11,11 @@ type FormValues = {
     facebook: string;
   };
   phoneNumbers: string[];
-  // for demonstration:
   phNumbers: {
-    // useFieldArray will only work with array of objects.
     number: string;
   }[];
+  age: number;
+  dob: Date;
 };
 
 const YouTubeFormV10 = () => {
@@ -30,6 +30,8 @@ const YouTubeFormV10 = () => {
       },
       phoneNumbers: ["", ""],
       phNumbers: [{ number: "" }],
+      age: 0,
+      dob: new Date(),
     },
   });
 
@@ -159,6 +161,38 @@ const YouTubeFormV10 = () => {
             Add phone number
           </button>
         </div>
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          {...register("age", {
+            valueAsNumber: true,
+            required: {
+              value: true,
+              message: "Age is required",
+            },
+          })}
+        />
+        <p className="error">{formErrors.age?.message}</p>
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="dob">Date of Birth</label>
+        <input
+          type="date"
+          id="dob"
+          {...register("dob", {
+            valueAsDate: true,
+            required: {
+              value: true,
+              message: "Date of Birth is required",
+            },
+          })}
+        />
+        <p className="error">{formErrors.dob?.message}</p>
       </div>
 
       <button onClick={handleSubmit(onSubmit)}>Submit</button>
