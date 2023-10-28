@@ -1,11 +1,11 @@
 import "./App.css";
 
-import YouTubeFormV23 from "./components/YouTubeFormV23";
+import YouTubeFormV24 from "./components/YouTubeFormV24";
 
 function App() {
   return (
     <div>
-      <YouTubeFormV23 />
+      <YouTubeFormV24 />
     </div>
   );
 }
