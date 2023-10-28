@@ -1,11 +1,11 @@
 import "./App.css";
 
-import YouTubeFormV24 from "./components/YouTubeFormV24";
+import ZodYouTubeForm from "./components/ZodYouTubeForm";
 
 function App() {
   return (
     <div>
-      <YouTubeFormV24 />
+      <ZodYouTubeForm />
     </div>
   );
 }
